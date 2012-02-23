@@ -1,0 +1,16 @@
+3 basic templates - VERY basic!
+
+HTML:
+Only simple html and css to get started with setup of a simple web site. Ideal for web campaigns or other single page sites.
+
+PHP:
+Basically extending the HTML-template with some basic php-functionality. It uses a simple header and footer-system, as well as more "advanced"
+foldering. This template is used for bigger sites where you would have multiple pages. The use of folder and file names are entirely to my
+own personal taste ^_^
+
+WORDPRESS:
+Originally for WP 3.0 but extended a bit. It works for WP 3.3.1. This code is full of beautiful weirdness, but it is the code I always use
+when it's time for me to set up yet another WP-theme somewhere. It's scaled down a lot, but still uses as much of WP as possible.
+
+EXTRA:
+In the root you'll find a bunch of often used php-functions I tend to use in many projects. Each file is a function.

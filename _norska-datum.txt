@@ -1,0 +1,49 @@
+transDate('D', strtotime( $row->timestamp ))
+transDate('M', strtotime( $row->timestamp ))
+
+
+// Translated dates
+function transDate($what, $thedate)
+{
+	$day    = date("l", $thedate);
+	$daynum = date("j", $thedate);
+	$month  = date("F", $thedate);
+	$year   = date("Y", $thedate);
+
+	switch($day)
+	{
+		case "Monday":    $day = "Mandag";  break;
+		case "Tuesday":   $day = "Tirsdag"; break;
+		case "Wednesday": $day = "Onsdag";  break;
+		case "Thursday":  $day = "Torsdag"; break;
+		case "Friday":    $day = "Fredag";  break;
+		case "Saturday":  $day = "Lørdag";  break;
+		case "Sunday":    $day = "Søndag";  break;
+		default:          $day = "Unknown"; break;
+	}
+		
+	switch($month)
+	{
+		case "January":   $month = "Januar";    break;
+		case "February":  $month = "Februar";   break;
+		case "March":     $month = "Mars";      break;
+		case "April":     $month = "April";     break;
+		case "May":       $month = "Mai";       break;
+		case "June":      $month = "Juni";      break;
+		case "July":      $month = "Juli";      break;
+		case "August":    $month = "August";    break;
+		case "September": $month = "September"; break;
+		case "October":   $month = "Oktober";   break;
+		case "November":  $month = "November";  break;
+		case "December":  $month = "Desember";  break;
+		default:          $month = "Unknown";   break;
+	}
+
+	$returnthis = '';
+	switch( strtoupper($what) )
+	{
+		case 'M': $returnthis = $month; break;
+		case 'D': $returnthis = $day; break;
+	}
+	return $returnthis;
+}
