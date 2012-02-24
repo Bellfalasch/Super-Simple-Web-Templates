@@ -2,6 +2,7 @@
 <?php
 	//phpinfo();
 
+
 	// Database variables
 	DEFINE('DB_USER', 'default');
 	DEFINE('DB_PASS', 'r7eRUCZf4hqmXQGn');
