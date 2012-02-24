@@ -16,8 +16,8 @@ function strDateToNorwegian($what, $thedate)
 		case 3:	 $day = "Onsdag";  break;
 		case 4:	 $day = "Torsdag"; break;
 		case 5:	 $day = "Fredag";  break;
-		case 6:	 $day = "Lørdag";  break;
-		case 7:	 $day = "Søndag";  break;
+		case 6:	 $day = "LÃ¸rdag";  break;
+		case 7:	 $day = "SÃ¸ndag";  break;
 		default: $day = "Ukjent";  break;
 	}
 	
