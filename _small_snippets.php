@@ -5,8 +5,20 @@
 
 
 <!-- Show content X, but switch to content Y after a certain date. -->
-	<?php if (date('Y-m-d') >= strtotime("2012-03-09")) { ?>
-		<a href="/y">Y</a>
+	<?php if (date('Y-m-d') >= '2012-03-09') { ?>
+		<a href="#yyyy">Y</a>
 	<?php } else { ?>
-		<a href="/x">X</a>
+		<a href="#xxxx">X</a>
 	<?php } ?>
+	
+<?php
+	// If text is empty return it as "null", otherwise return it with appended and prepended ' (for SQL)
+	function addSlashesOrNull($text)
+	{
+		$text = trim($text);
+		if ($text == '')
+			return 'null';
+		else
+			return "'" . $text . "'";
+	}
+?>
