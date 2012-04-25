@@ -1,24 +1,31 @@
 <?php
 /**
- * Very rough code for fast handling of SQL
+ * Very rough code for easy handling of SQL and databases on a local + remote site
  * 
  * This is always included as a global.php file in every project. The SQL can be in another file
  * if you'd like. I then just write loads of SQL-functions that the front-end developers easily
  * can call and use. Se the four examples in code.
  * Main db-function db_MAIN can easily be manipulated so that it automatically outputs zero rows
  * errors.
+
+ * TODO:
+ * Rensa upp exemplena och ersætt SQL-koden med ordentlig kod istællet (som skriver ut data, inte bygger SQL:er, inte sista iaf)
+ * Skriv om så den kan hantera INS och SEL på olika sætt, och smidigare
+ * Reducera mængden kod en programmerare måste upprepa før att få jobbet gjort
+ * Rensa struntkod, kommentarer, etc, som inte behøvs
+ * Skriv om som en klass?
  */
 
 // Database setup (MySQL)
 // ****************************************************************************	
 	
-	// Set constants after environment
+	// Set constants for db-access after environment
 	if ($_SERVER['SERVER_NAME'] == 'localhost')
 	{	// LOCAL
-		DEFINE('DB_USER', 'default');
-		DEFINE('DB_PASS', 'r7eRUCZf4hqmXQGn');
-		DEFINE('DB_HOST', 'localhost');
-		DEFINE('DB_NAME', 'test');
+		DEFINE('DB_USER', 'default');			// Username for database
+		DEFINE('DB_PASS', 'r7eRUCZf4hqmXQGn');	// Password for database
+		DEFINE('DB_HOST', 'localhost');			// Server for database
+		DEFINE('DB_NAME', 'test');				// Select database on server
 	} else {
 		// LIVE (change to your settings)
 		DEFINE('DB_USER', 'xxx');
@@ -30,33 +37,40 @@
 	// Set up database class
 	global $mysqli;
 	$mysqli = new mysqli( DB_HOST, DB_USER, DB_PASS, DB_NAME );
+	if (mysqli_connect_errno()) { die("<p>Can't connect to this database or server =/</p>"); }
 	$mysqli->set_charset('utf8');
 
 
 
 
-// Usages (change content in here, just for example purposes
+// Prepared SQL-functions extracting data from db (our examples further down can be used)
 // ****************************************************************************		
 	
-	// Example 0: As a function that front end developer easily can call and use
 	/**
-	 * Short comment of function with info on param and return-list for developer
-	 * so they don't need to worry about the SQL at all.
+	 * Example 1: Short comment of function with info on param and return-list for developer
+	 * so they don't need to worry about the SQL at all. This one with good comments.
 	 * 
-	 * @param undergruppe 			undergruppeID you wanna find
+	 * @param undergruppe(string) 		undergruppeID you wanna find
 	 * returns: g1, artnr, artikkel, beskrivelse, prefert
 	 */
 	function db_getItemsFromSubcategory($undergruppe) {
 		$q = "SELECT `g1`, `artnr`, `artikkel`, `beskrivelse`, `prefert`
 			  FROM `ingredients`
-			  WHERE `ug1` = '" . $undergruppe . "'
+			  WHERE `ug1` = '$undergruppe'
 			  ORDER BY `artikkel` ASC";
 		return db_MAIN( $q );
 	}
-	// Call from code: db_getItemsFromSubcategory('x100upz');
 	
+
 	
-	// Example 1: Build simple SQL INSERT statement and then run it through "db_MAIN"
+// Actual usages (change content in here, just for example purposes
+// ****************************************************************************		
+
+	// Example 1: See function declared above
+	$result = db_getItemsFromSubcategory('x100upz');
+
+
+	// Example 2: Build simple SQL INSERT statement and then run it through "db_MAIN"
 	$q = "INSERT INTO `groups` (`g1`, `navn`)
 		  SELECT DISTINCT(`g1`) AS id, `gruppe` AS gruppenavn
 		  FROM `tmp`
@@ -65,7 +79,7 @@
 	db_MAIN( $q );
 	
 	
-	// Example 2: Perform a SELECT and then loop through that data and build INSERT-statement that is pushed to database
+	// Example 3: Perform a SELECT and then loop through that data and build an INSERT-statement that is later pushed to database
 	$result = db_MAIN("SHOW COLUMNS FROM `tmp`
 		  WHERE `field` <> 'g1' AND `field` <> 'ug1' AND
 			`field` <> 'gruppe' AND `field` <> 'undergruppe' AND
@@ -82,15 +96,15 @@
 		{
 			$q .= "('" . $row->Field . "'), ";
 		}
-		$q = substr( trim($q), 0, -1) . ";";
+		$q = substr( trim($q), 0, -1) . ";"; // Strip trailing , and add a ;
 		db_MAIN($q);
 		
 	} else {
-		echo "<p>ERROR: Inga kolumner funna</p>";
+		echo "<p>ERROR: No data found!</p>";
 	}
 	
 	
-	// Example 3: Drop and then create table a new, then select data from table X and loop trough
+	// Example 4: Drop and then create table a new, then select data from table X and loop trough
 	// 			  it while for each row also looping through table Y building a big INSERT-statement.
 	db_MAIN("DROP TABLE IF EXISTS `prop-ingr`;");
 	db_MAIN( "CREATE TABLE IF NOT EXISTS `prop-ingr`
@@ -105,7 +119,6 @@
 	{
 		while ( $row = $result->fetch_object() )
 		{
-		
 			$result2 = db_MAIN("SELECT `id`, `artnr`, `" . $row->navn . "` AS `value` FROM `idun_tmp` WHERE `" . $row->navn . "` <> '' AND `id` > 1 AND LCASE(`prisliste`) <> 'nei' AND `prisliste` <> '' ORDER BY `id` ASC");
 			if ( isset( $result2 ) )
 			{
@@ -139,6 +152,13 @@
 		$result = $mysqli->query( $sql );
 		if ( $result )
 		{
+
+			// TODO:
+			// Should fit it to work with this (maybe split this func up):
+			// The mysqli_insert_id() function returns the ID generated by a query on a table with a column having the AUTO_INCREMENT attribute. If the last query wasn't an INSERT or UPDATE statement or if the modified table does not have a column with the AUTO_INCREMENT attribute, this function will return zero.
+			// $mysqli->query($query);
+			// printf ("New Record has id %d.\n", $mysqli->insert_id);
+
 //			if ($result->num_rows > 0) {
 				//echo "<strong>( Rows: " . $result->num_rows . " - Fields: " . $result->field_count . " )</strong><br />";
 				return $result;
