@@ -13,7 +13,9 @@
  * Skriv om så den kan hantera INS och SEL på olika sætt, och smidigare
  * Reducera mængden kod en programmerare måste upprepa før att få jobbet gjort
  * Rensa struntkod, kommentarer, etc, som inte behøvs
+ * Prøva med bind_param på INS
  * Skriv om som en klass?
+ * http://bathroom.baclayon.com/php/php-mysqli.php (massa bra, se æven affected_rows)
  */
 
 // Database setup (MySQL)
