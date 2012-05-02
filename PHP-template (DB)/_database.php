@@ -121,4 +121,30 @@
 	} else {
 		echo "<p>ERROR: Inga kolumner funna</p>";
 	}
+
+
+
+// Database main function (does all the talking to the database class and handling of errors)
+// This can be updated so that it don't let empty results through, just uncomment all comments =)
+// ****************************************************************************	
+
+	function db_MAIN($sql)
+	{
+		global $mysqli;
+		$result = $mysqli->query( $sql );
+		if ( $result )
+		{
+//			if ($result->num_rows > 0) {
+				//echo "<strong>( Rows: " . $result->num_rows . " - Fields: " . $result->field_count . " )</strong><br />";
+				return $result;
+//			} else {
+				//echo 'There are no results to display.';
+//				return null;
+//			}
+		} else {
+			printf("<div class='error'>There has been an error from MySQL: %s<br /><br />%s</div>", $mysqli->error, nl2br($sql));
+			//return null;
+			exit; // halta all kod, kritiskt fel
+		}
+	}
 ?>

@@ -2,8 +2,8 @@
 	/* Set up template variables */
 	$pagetitle = 'Forsiden';
 ?>
-<?php include_once('_header.php'); ?>
+<?php require('_header.php'); ?>
 
 	Content!
 
-<?php include_once('_footer.php'); ?>
+<?php require('_footer.php'); ?>

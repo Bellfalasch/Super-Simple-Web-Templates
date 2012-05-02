@@ -20,5 +20,5 @@
 	<link rel="shortcut icon" href="favicon.ico" />
 </head>
 <body>
-<?php include_once('_database.php'); ?>
+<?php require('_database.php'); ?>
 <!-- /header -->
