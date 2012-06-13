@@ -36,11 +36,11 @@
 	 * @return mysqli->query			fields: id, sessionid, ip, created, last_active, stage
 	 */
 	function db_getMyCart($sessionid) {
-		$q = "SELECT `id`, `sessionid`, `ip`, `created`, `last_active`, `stage`
-			  FROM `carts`
-			  WHERE `sessionid` = '$sessionid'
-			  ORDER BY `id` DESC";
-		return db_MAIN( $q );
+		$sql = "SELECT `id`, `sessionid`, `ip`, `created`, `last_active`, `stage`
+				FROM `carts`
+				WHERE `sessionid` = '$sessionid'
+				ORDER BY `id` DESC";
+		return db_MAIN( $sql );
 	}
 
 	/**
@@ -51,8 +51,9 @@
 	 * @return int mysql->insert_id
 	 */
 	function db_setNewCart($sessionid, $ip) {
-		$q = "INSERT INTO `carts`(`sessionid`, `ip`) VALUES('$sessionid', '$ip')";
-		return db_EXEC( $q );
+		$sql = "INSERT INTO `carts`(`sessionid`, `ip`)
+				VALUES('$sessionid', '$ip')";
+		return db_EXEC( $sql );
 	}
 	
 
@@ -163,6 +164,7 @@
 	}
 
 	// http://blog.ulf-wendel.de/2011/executing-mysql-queries-with-php-mysqli/
+	// Run SQL that doesn't return a dataset, and return inserted id
 	function db_EXEC($sql)
 	{
 		global $mysqli;

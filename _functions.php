@@ -9,7 +9,7 @@
  * @param mixed $value
  * @return string
 */
-function quote_smart ($value){
+function quote_smart($value){
 	if ( get_magic_quotes_gpc () && !is_null ($value) ) {
 		$value = stripslashes ($value);
 	}
