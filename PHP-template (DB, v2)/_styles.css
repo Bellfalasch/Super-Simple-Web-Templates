@@ -1,0 +1,68 @@
+/* Default elements */
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+body {
+	text-align: center;
+}
+body * {
+	font-family: Helvetica, Arial, sans-serif;
+}
+a img {
+	border: 0;
+}
+a {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+
+
+/* ********************* */
+/* Main template objects */
+#container {
+	padding: 20px;
+	width: 920px;
+	text-align: left;
+}
+ul#nav {
+	list-style-type: none;
+}
+	ul#nav li {
+		float: left;
+	}
+		ul#nav li a {
+			display: block;
+		}
+
+
+
+/* *************** */
+/* Support classes */
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+
+
+/* *************** */
+/* Template: index */
+/* <insert code only for the index-template> */
+
+/* Template: xyz */
+/* <insert code only for the xyz-template> */
+
+/* etc */
