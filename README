@@ -1,18 +1,32 @@
 ********************************************
-* 3 basic templates - extremly VERY basic! *
+* 6 basic templates - extremly VERY basic! *
 ********************************************
 
-HTML:
+Check each folder for more information, where available. The goal of all these templates is to make them very easy to learn, start up and maintain, in any environment.
+
+Our templates:
+
+- HTML:
 Only simple html and css to get started with setup of a simple web site. Ideal for web campaigns or other single page sites.
 
-PHP:
+- PHP:
 Basically extending the HTML-template with some basic php-functionality. It uses a simple header and footer-system, as well as more "advanced"
 foldering. This template is used for bigger sites where you would have multiple pages. The use of folder and file names are entirely to my
 own personal taste ^_^
 
-WORDPRESS:
+- PHP DB:
+Extending the PHP-templates with ready made DB-handling and basic functions.
+
+- PHP DB v2: (NEW!)
+Extending the DB v1 system with a chock load of extra functions, structure, and creaming on the cake =D
+
+- ADMIN: (NEW!)
+Adding upon PHP DB v1 and PHP DB v2, this admin module is easily added and configured to your liking. This is our take on an simple CMS that really is simple! Every CMS out there is way to complex for most of our clients, they don't need billions of features like in Wordpress, they just need a log in
+and a simple interface to update the database tables.
+
+- WORDPRESS:
 Originally for WP 3.0 but extended a bit. It works for WP 3.3.1. This code is full of beautiful weirdness, but it is the code I always use
 when it's time for me to set up yet another WP-theme somewhere. It's scaled down a lot, but still uses as much of WP as possible.
 
-EXTRA:
+- EXTRA:
 In the root you'll find a bunch of often used php-functions I tend to use in many projects. Each file is a function (except the _functions.php-file).
