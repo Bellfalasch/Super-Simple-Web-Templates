@@ -11,6 +11,8 @@
 	
 		<?php
 
+			$redirectme = false;
+
 			$strFornavn = formGet("fornavn");
 			$strEtternavn = formGet("etternavn");
 			$strPostnr = formGet("postnr");
@@ -20,7 +22,7 @@
 
 				// Validate data
 				// Show possible errors inline
-				pushError('Produkt eksisterer ikke i databasen.');
+				pushError('Enter example error to be displayed at top of the page.');
 
 				// Save to database
 				if (!empty($_SESSION['ERRORS'])) {
@@ -30,20 +32,17 @@
 				} else {
 				
 					// Save to database
-					// Example:
-					/*
-						$putincart = db_setPutProductInCart( array(
-										'smartlapper_id' => $strFornavn,
-										'smartlapper_id' => $strEtternavn
-									 ) );
+					$putincart = db_setPutProductInCart( array(
+									'smartlapper_id' => $strFornavn,
+									'smartlapper_id' => $strEtternavn
+								 ) );
 
-						// Denna ger inget inserted_id eftersom tabellen inte har någon autoincrement, den ger -1 eller 0 før fail resp. success
-						if ($putincart >= 0) {
-							pushDebug("<p>Created data in `carts_has_smartlapper` (join-table, no id).</p>");
-						} else {
-							pushError_tran("db_setPutProductInCart() couldn't create a new Product in the shopping Cart for this session.");
-						}
-					*/
+					// Denna ger inget inserted_id eftersom tabellen inte har någon autoincrement, den ger -1 eller 0 før fail resp. success
+					if ($putincart >= 0) {
+						pushDebug("<p>Created data in `carts_has_smartlapper` (join-table, no id).</p>");
+					} else {
+						pushError_tran("db_setPutProductInCart() couldn't create a new Product in the shopping Cart for this session.");
+					}
 
 					// Redirect to next step
 					if (empty($_SESSION['ERRORS_TRAN']) && empty($_SESSION['ERRORS'])) {
@@ -107,6 +106,16 @@
 				<input type="submit" name="submit" value="Send inn &raquo;" />
 
 			</form>
+
+			<?php
+
+				if ($redirectme)
+				{
+					ob_clean();
+					header('Location: ' . $SYS_folder . '/order_thx.php');
+				}
+
+			?>
 
 		</div>
 	</div>
