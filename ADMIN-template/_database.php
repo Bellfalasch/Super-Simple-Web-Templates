@@ -1,5 +1,13 @@
 <?php
 
+	// Databasen ser isch ut sånhär:
+	// "SELECT title, start, stop, shortinfo, image, verv_step1, verv_step2, verv_takk, give_step1, give_takk FROM campaigns WHERE id = x"
+	// Statistik får utebli så länge!
+	// Matchit av/på kan finnas där men sakna funktion
+
+
+
+
 	function db2_searchInvoice($in) { cleanup($in);
 		return db_MAIN("
 			SELECT o.*, c.*
@@ -137,71 +145,76 @@
 		");
 	}
 
-	////////////////// DISCOUNTS //////////////////////
+	////////////////// CAMPAIGNS //////////////////////
 
-	function db2_getDiscounts() {
+	function db2_getCampaignsActive() {
 		return db_MAIN("
-			SELECT `id`, `title`, `code`, `start`, `stop`, `percentage`, `info`
-			FROM `cart_codes`
+			SELECT `id`, `title`, `start`, `stop`
+			FROM `campaigns`
+			WHERE NOW() BETWEEN `start` AND `stop`
 			ORDER BY `id` DESC
 		");
 	}
-	function db2_getDiscountsActive() {
+	function db2_getCampaignsInactive() {
 		return db_MAIN("
-			SELECT `id`, `title`, `code`, `start`, `stop`, `percentage`, `info`
-			FROM `cart_codes`
-			WHERE NOW() BETWEEN `start` AND `STOP`
+			SELECT `id`, `title`, `start`, `stop`
+			FROM `campaigns`
+			WHERE NOW() NOT BETWEEN `start` AND `stop`
 			ORDER BY `id` DESC
 		");
 	}
-	function db2_getDiscountsInactive() {
+	function db2_getCampaign($in) { cleanup($in);
 		return db_MAIN("
-			SELECT `id`, `title`, `code`, `start`, `stop`, `percentage`, `info`
-			FROM `cart_codes`
-			WHERE NOW() NOT BETWEEN `start` AND `STOP`
-			ORDER BY `id` DESC
-		");
-	}
-	function db2_getDiscount($in) { cleanup($in);
-		return db_MAIN("
-			SELECT `id`, `title`, `code`, `start`, `stop`, `percentage`, `info`
-			FROM `cart_codes`
+			SELECT `id`, `title`, `url`, `start`, `stop`, `shortinfo`, `verv_step1`, `verv_step2`, `verv_takk`, `give_step1`, `give_takk`, `image`
+			FROM `campaigns`
 			WHERE id = {$in['id']}
 		");
 	}
-	function db2_updateDiscount($in) { cleanup($in);
+	function db2_updateCampaign($in) { cleanup($in);
 		return db_MAIN("
-			UPDATE `cart_codes`
+			UPDATE `campaigns`
 			SET
 				`title` = {$in['title']},
-				`code` = {$in['code']},
+				`url` = {$in['url']},
 				`start` = {$in['start']},
 				`stop` = {$in['stop']},
-				`info` = {$in['info']}
+				`shortinfo` = {$in['short_info']},
+				`verv_step1` = {$in['verv_step1']},
+				`verv_step2` = {$in['verv_step2']},
+				`verv_takk` = {$in['verv_takk']},
+				`give_step1` = {$in['give_step1']},
+				`give_takk` = {$in['give_takk']},
+				`image` = {$in['image']}
 			WHERE `id` = {$in['id']}
 		");
 	}
-	function db2_createDiscount($in) { cleanup($in);
+	function db2_createCampaign($in) { cleanup($in);
 		return db_MAIN("
-			INSERT INTO `cart_codes`
-				(`title`,`code`,`start`,`stop`,`percentage`,`info`)
+			INSERT INTO `campaigns`
+				(`title`, `url`, `start`, `stop`, `shortinfo`, `verv_step1`, `verv_step2`, `verv_takk`, `give_step1`, `give_takk`, `image`)
 			VALUES(
 				{$in['title']},
-				{$in['code']},
+				{$in['url']},
 				{$in['start']},
 				{$in['stop']},
-				{$in['percentage']},
-				{$in['info']}
+				{$in['short_info']},
+				{$in['verv_step1']},
+				{$in['verv_step2']},
+				{$in['verv_takk']},
+				{$in['give_step1']},
+				{$in['give_takk']},
+				{$in['image']}
 			)
 		");
 	}
+/*
 	function db2_delDiscount($in) { cleanup($in);
 		return db_MAIN("
 			DELETE FROM `cart_codes`
 			WHERE `id` = {$in['id']}
 		");
 	}
-
+*/
 
 
 
@@ -209,30 +222,29 @@
 
 	function db_getUserLoginInfo($in) { cleanup($in);
 		return db_MAIN("
-			SELECT `id`, `username`, `password`, `mail`, `level`
-			FROM `users`
-			WHERE `username` LIKE {$in['username']}
-			OR `mail` LIKE {$in['username']}
+			SELECT `id`, `password`, `mail`, `level`
+			FROM `admins`
+			WHERE `mail` LIKE {$in['username']}
 			LIMIT 1
 		;");
 	}
 	function db_getUsers() {
 		return db_MAIN("
-			SELECT `id`, `username`, `password`, `mail`, `level`
-			FROM `users`
+			SELECT `id`, `password`, `mail`, `level`
+			FROM `admins`
 			ORDER BY `id` DESC
 		");
 	}
 	function db_getUser($in) { cleanup($in);
 		return db_MAIN("
-			SELECT `id`, `username`, `password`, `mail`, `level`
-			FROM `users`
+			SELECT `id`, `password`, `mail`, `level`
+			FROM `admins`
 			WHERE id = {$in['id']}
 		");
 	}
 	function db_setUpdateUser($in) { cleanup($in);
 		return db_MAIN("
-			UPDATE `users`
+			UPDATE `admins`
 			SET
 				`mail` = {$in['mail']},
 				`password` = {$in['password']},
@@ -242,11 +254,9 @@
 	}
 	function db_setUser($in) { cleanup($in);
 		return db_MAIN("
-			INSERT INTO `users`
-				(`username`,`salt`,`mail`,`password`,`level`)
+			INSERT INTO `admins`
+				(`mail`,`password`,`level`)
 			VALUES(
-				'',
-				'',
 				{$in['mail']},
 				{$in['password']},
 				{$in['level']}
@@ -255,7 +265,7 @@
 	}
 	function db_delUser($in) { cleanup($in);
 		return db_MAIN("
-			DELETE FROM `users`
+			DELETE FROM `admins`
 			WHERE `id` = {$in['id']}
 		");
 	}

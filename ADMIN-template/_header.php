@@ -4,7 +4,7 @@
 	// Dynamic links etc based on where we have the code-files
 	// Needs to be set here so that require-url matcher.
 	if ($_SERVER['SERVER_NAME'] == 'localhost') {
-		$SYS_folder = '/smartlapper/dev';
+		$SYS_folder = '/morgenbladet/verv';
 	} else {
 		$SYS_folder = '';
 	}
@@ -25,7 +25,7 @@
 <?php
 
 	// Define environment; development on or off.
-	DEFINE('DEV_ENV', false);
+	DEFINE('DEV_ENV', true);
 
 	if (DEV_ENV) {
 		error_reporting(E_ALL);
@@ -45,9 +45,9 @@
 	// Dynamic links etc based on where we have the code-files
 	if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	
-		$SYS_folder = "/smartlapper";
+		$SYS_folder = "/morgenbladet/verv";
 		$SYS_url = "localhost";
-
+/*
 		if ($mapp === 'dev') {
 			$SYS_folder .= "/dev";
 		} elseif ($mapp === 'demo') {
@@ -57,7 +57,7 @@
 		} else {
 			$SYS_folder .= "";
 		}
-	
+*/	
 	} else {
 		
 		//echo("test: " . $_SERVER['SERVER_NAME']);
@@ -162,9 +162,8 @@
 					<ul class="nav">
 						<li<?php isActiveOn("login,index") ?>><a href="<?= $SYS_folder ?>/_admin/index.php">Start</a></li>
 						<?php if ($SYS_adminlvl > 0) { ?>
-							<li<?php isActiveOn("print") ?>><a href="<?= $SYS_folder ?>/_admin/print.php">Printing</a></li>
+							<li<?php isActiveOn("campaign,image") ?>><a href="<?= $SYS_folder ?>/_admin/campaign.php">Campaigns</a></li>
 							<?php if ($SYS_adminlvl == 2) { ?>
-							<li<?php isActiveOn("invoices,search,datespan,overview,invoice,discounts") ?>><a href="<?= $SYS_folder ?>/_admin/search.php">Economy</a></li>
 							<li<?php isActiveOn("users") ?>><a href="<?= $SYS_folder ?>/_admin/users.php">Users</a></li>
 							<?php } ?>
 						<?php } ?>
@@ -188,24 +187,11 @@
 
 				<li<?php isActiveOn("users") ?>><a href="<?= $SYS_folder ?>/_admin/users.php">Users</a></li>
 
-			<?php } else if ($SYS_script == "print") { ?>
+			<?php } else if ($SYS_script == "campaign" || $SYS_script == "image") { ?>
 
 				<?php if ($SYS_adminlvl > 0) { ?>
-					<li<?php isActiveOn("print") ?>><a href="<?= $SYS_folder ?>/_admin/print.php">Print</a></li>
-				<?php } ?>
-
-			<?php } else { ?>
-
-				<?php if ($SYS_adminlvl > 0) { ?>
-					<li<?php isActiveOn("search,invoice") ?>><a href="<?= $SYS_folder ?>/_admin/search.php">Find invoice</a></li>
-					<li<?php isActiveOn("overview") ?>><a href="<?= $SYS_folder ?>/_admin/overview.php">Overview</a></li>
-					<li<?php isActiveOn("datespan") ?>><a href="<?= $SYS_folder ?>/_admin/datespan.php">Date span</a></li>
-					<li<?php isActiveOn("discounts") ?>><a href="<?= $SYS_folder ?>/_admin/discounts.php">Discounts</a></li>
-					<?php if ($SYS_adminlvl == 2) { ?>
-					<!--<li<?php isActiveOn("image") ?>><a href="<?= $SYS_folder ?>/_admin/image.php">XX</a></li>-->
-					<?php } ?>
-				<?php } else { ?>
-					<li<?php isActiveOn("login") ?>><a href="<?= $SYS_folder ?>/_admin/login.php">Login</a></li>
+					<li<?php isActiveOn("campaign") ?>><a href="<?= $SYS_folder ?>/_admin/campaign.php">Campaigns</a></li>
+					<li<?php isActiveOn("image") ?>><a href="<?= $SYS_folder ?>/_admin/image.php">Image</a></li>
 				<?php } ?>
 
 			<?php } ?>

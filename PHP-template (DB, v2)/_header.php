@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<?php require('inc/globals.php'); ?>
+<?php require('inc/globals.php'); ?><!DOCTYPE html>
 
 <html lang="nb-NO">
 <head>

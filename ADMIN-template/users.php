@@ -40,7 +40,7 @@
 			$formLevel = formGet('level');
 
 			if ($formMail != '') {
-				if (!isValidLength('mail',5,100)) {
+				if (!isValidLength($formMail,5,100)) {
 					pushError('Teksten i "E-mail" er for lang. Legg inn tekst med maks 100 tegn.');
 				}
 			} else {
@@ -48,7 +48,7 @@
 			}
 
 			if ($formPassword != '') {
-				if (!isValidLength('password',3,45)) {
+				if (!isValidLength($formPassword,3,45)) {
 					pushError('Teksten i "Password" er for lang, eller kort. Legg inn tekst med minimum 3 tegn og maks 45 tegn.');
 				}
 			} else {
