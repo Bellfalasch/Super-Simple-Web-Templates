@@ -39,6 +39,7 @@
 	//////////////////////////////////////////////////////////////////////////////////
 
 	header('Content-type: text/html; charset=utf-8');
+	header('X-UA-Compatible: IE=edge,chrome=1');
 	
 	if (!DEV_ENV)
 		ini_set('session.gc_maxlifetime', '10800');
