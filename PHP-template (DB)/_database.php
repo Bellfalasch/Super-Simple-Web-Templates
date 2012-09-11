@@ -11,10 +11,10 @@
 		DEFINE('DB_NAME', 'test');				// Select database on server
 	} else {
 		// LIVE (change to your settings)
-		DEFINE('DB_USER', 'xxx');
-		DEFINE('DB_PASS', 'xxx');
-		DEFINE('DB_HOST', 'xxx');
-		DEFINE('DB_NAME', 'xxx');
+		DEFINE('DB_USER', 'xxxx');
+		DEFINE('DB_PASS', 'xxxx');
+		DEFINE('DB_HOST', 'xxxx');
+		DEFINE('DB_NAME', 'xxxx');
 	}
 	
 	// Set up database class
