@@ -4,7 +4,7 @@
 	// Dynamic links etc based on where we have the code-files
 	// Needs to be set here so that require-url matcher.
 	if ($_SERVER['SERVER_NAME'] == 'localhost') {
-		$SYS_folder = '/morgenbladet/verv';
+		$SYS_folder = '/mylocalfolder/etc';
 	} else {
 		$SYS_folder = '';
 	}
@@ -23,6 +23,12 @@
 <?php require('_database.php'); ?>
 
 <?php
+
+	// Set isPost
+	if ($_SERVER['REQUEST_METHOD'] === 'POST')
+		DEFINE('ISPOST', true);
+	else
+		DEFINE('ISPOST', false);
 
 	// Define environment; development on or off.
 	DEFINE('DEV_ENV', true);
@@ -45,7 +51,6 @@
 	// Dynamic links etc based on where we have the code-files
 	if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	
-		$SYS_folder = "/morgenbladet/verv";
 		$SYS_url = "localhost";
 /*
 		if ($mapp === 'dev') {
@@ -62,7 +67,7 @@
 		
 		//echo("test: " . $_SERVER['SERVER_NAME']);
 
-		$SYS_url = $_SERVER['SERVER_NAME']; //"www.smartlapper.no";
+		$SYS_url = $_SERVER['SERVER_NAME'];
 
 		if ($mapp === 'dev') {
 			$SYS_folder = "/dev";
@@ -72,6 +77,32 @@
 			$SYS_folder = "";
 		}
 	}
+	//////////////////////////////////////////////////////////////////////////////////
+
+	function generateField($field) {
+		
+		//$thefield = label, id, type, content, description, max
+
+		$demanded = "";
+		if ($field["errors"]["empty"] != '')
+			$demanded = "<strong>*</strong>";
+
+		$maxlength = "";
+		if ($field["max"] != '')
+			$maxlength = " maxlength=\"" . $field["max"] . "\"";
+
+		$strField = "
+				<div class=\"control-group\">
+					<label class=\"control-label\" for=\"input" . $field["id"] . "\">" . $field["label"] . "</label>
+					<div class=\"controls\">
+						<input type=\"" . $field["type"] . "\" name=\"" . strtolower($field["id"]) . "\" class=\"input-xlarge\" id=\"input" . $field["id"] . "\" value=\"" . htmlspecialchars($field["content"], ENT_QUOTES) . "\"" . $maxlength . " />
+						<p class=\"help-block\">" . $field["description"] . "</p>
+					</div>
+				</div>";
+
+		echo $strField;
+	}
+
 	//////////////////////////////////////////////////////////////////////////////////
 
 	header('Content-type: text/html; charset=utf-8');
@@ -131,9 +162,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf8" />
 	<title><?= $pagetitle ?> - Smartlapper</title>
 	<link rel="shortcut icon" href="<?= $SYS_folder ?>/favicon.ico">
-	<link rel="stylesheet" href="<?= $SYS_folder ?>/_admin/bootstrap.min.css" />
-	<link rel="stylesheet" href="<?= $SYS_folder ?>/_admin/admin.css?v=<?php if (DEV_ENV) echo rand(); ?>" />
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="<?= $SYS_folder ?>/_admin/assets/bootstrap.min.css" />
+	<link rel="stylesheet" href="<?= $SYS_folder ?>/_admin/assets/admin.css?v=<?php if (DEV_ENV) echo rand(); ?>" />
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 </head>
 <body>
 

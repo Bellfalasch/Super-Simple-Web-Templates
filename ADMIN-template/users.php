@@ -9,16 +9,15 @@
 	<?php
 
 		$user_id = -1;
-		//$formUsername = '';
 		$formMail = '';
 		$formPassword = '';
 		$formLevel = '';
 
 		if (isset($_GET['id']))
-			$user_id = trim( $_GET['id'] );
+			$user_id = qsGet('id');
 
 		
-		if (isset($_GET['del']) && $_SERVER['REQUEST_METHOD'] !== 'POST')
+		if (isset($_GET['del']) && !ISPOST)
 		{
 			$del_id = trim( $_GET['del'] );
 
@@ -33,7 +32,7 @@
 		}
 		
 
-		if ($_SERVER['REQUEST_METHOD'] === 'POST')
+		if (ISPOST)
 		{
 			$formMail = strtolower(formGet('mail'));
 			$formPassword = formGet('password');
@@ -74,7 +73,7 @@
 
 					if ($result >= 0) {
 						//echo "Sparat!";
-						echo '<div class="alert alert-success"><h4>Save successful</h4><p>User oppdatert</p></div>';
+						echo '<div class="alert alert-success"><h4>Save successful</h4><p>User updated</p></div>';
 					} else {
 						pushError("IKKE sparat");
 					}
@@ -90,7 +89,7 @@
 
 					if ($result > 0) {
 						//echo "Nytt med id $result";
-						echo '<div class="alert alert-success"><h4>Save successful</h4><p>Ny User lagrat, id: ' . $result . '</p></div>';
+						echo '<div class="alert alert-success"><h4>Save successful</h4><p>New User saved, id: ' . $result . '</p></div>';
 
 						$user_id = -1;
 						$formMail = '';

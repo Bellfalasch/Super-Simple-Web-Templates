@@ -1,9 +1,9 @@
 <?php
 
-	// Databasen ser isch ut sånhär:
-	// "SELECT title, start, stop, shortinfo, image, verv_step1, verv_step2, verv_takk, give_step1, give_takk FROM campaigns WHERE id = x"
-	// Statistik får utebli så länge!
-	// Matchit av/på kan finnas där men sakna funktion
+	// All these SQLs can be deleted. They are just listed here as examples of structure and usage, also they are used in the
+	// example admin templates.
+
+	// However, the last few functions headlined "Users" is used for the login-system and they are critical for the admin.
 
 
 
@@ -207,14 +207,6 @@
 			)
 		");
 	}
-/*
-	function db2_delDiscount($in) { cleanup($in);
-		return db_MAIN("
-			DELETE FROM `cart_codes`
-			WHERE `id` = {$in['id']}
-		");
-	}
-*/
 
 
 
