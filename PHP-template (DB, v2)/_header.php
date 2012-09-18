@@ -1,16 +1,19 @@
 <?php require('inc/globals.php'); ?><!DOCTYPE html>
-
-<html lang="nb-NO">
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="no"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="no"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="no"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="no"> <!--<![endif]-->
 <head>
-	<title><?php echo $PAGE_title ?> - Sitename</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title><?php echo $PAGE_title ?> - SITENAME</title>
 	<?php if (isset($PAGE_desc)) { ?><meta name="description" content="<?= $PAGE_desc ?>" /><?php } ?>
 	<?php if (DEV_ENV) { ?><meta name="robots" content="noindex, nofollow" /><?php } ?>
 	<link href="<?= $SYS_folder ?>/_styles.css?v=<?php if (DEV_ENV) echo rand(); ?>" rel="stylesheet" type="text/css" />
-	<!--[if lte IE 8]>
-		<style>
-			/* IE-bypass */
-		</style>
+	<link rel="stylesheet/less" type="text/css" href="<?= $SYS_folder ?>/css/less/styles.less" />
+	<script src="<?= $SYS_folder ?>/js/less-1.3.0.min.js" type="text/javascript"></script>
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
 	<script src="<?= $SYS_folder ?>/js/global.js?v=<?php if (DEV_ENV) echo rand(); ?>" type="text/javascript"></script>
@@ -48,5 +51,12 @@
 </head>
 <body>
 
-	<div id="container">
+	<header>
+		<h1>Logo</h1>
+		<nav>
+			Nav
+		</nav>
+	</header>
+
+	<article>
 <!-- /header -->

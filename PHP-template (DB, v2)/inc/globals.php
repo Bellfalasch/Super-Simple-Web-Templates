@@ -23,12 +23,12 @@
 	// Dynamic links etc based on where we have the code-files
 	if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	
-		$SYS_folder = "/morgenbladet/verv";
+		$SYS_folder = "/MY_FOLDER"; // If more folders just add as "/MY_FOLDER/SUBFOLDER/MORE/EXTRA"
 		$SYS_url = "localhost";
 	
-	} else {
+	} else { // Live woop!
 		
-		$SYS_url = $_SERVER['SERVER_NAME']; //"www.smartlapper.no";
+		$SYS_url = $_SERVER['SERVER_NAME'];
 		$SYS_folder = "";
 	}
 
