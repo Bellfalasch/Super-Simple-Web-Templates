@@ -12,7 +12,7 @@
 			/* IE-bypass */
 		</style>
 	<![endif]-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
 	<script src="<?= $SYS_folder ?>/js/global.js?v=<?php if (DEV_ENV) echo rand(); ?>" type="text/javascript"></script>
 	
 	<?php
@@ -43,7 +43,7 @@
 		*/
 	?>
 	<?php if (in_array( $SYS_script, array('shop_dibs_accept','shop_done','shop_fail','dibs','validate','popupanddown','handlekurv') ) ) { ?>
-	<meta name="robots" content="no index, no follow" />
+		<!-- Yeah, this code only displayed on certain templates =) -->
 	<?php } ?>
 </head>
 <body>
