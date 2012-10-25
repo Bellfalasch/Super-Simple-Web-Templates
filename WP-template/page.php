@@ -1,27 +1,23 @@
 <?php get_header(); ?>
 
 	<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-			
-		<div class="post" id="post-<?php the_ID(); ?>">
 
-			<h2><?php the_title(); ?></h2>
+		<header>
+			<h1><?php the_title(); ?></h1>
+		</header>
 
-			<?php include (TEMPLATEPATH . '/inc/meta.php' ); ?>
+		<section>
 
-			<div class="entry">
+			<?php the_content(); ?>
 
-				<?php the_content(); ?>
+		</section>
 
-				<?php wp_link_pages(array('before' => 'Pages: ', 'next_or_number' => 'number')); ?>
+	<?php endwhile; ?>
 
-			</div>
+	<?php else : ?>
 
-			<?php edit_post_link('Edit this entry.', '<p>', '</p>'); ?>
+		<h2>Not Found</h2>
 
-		</div>
-		
-		<?php // comments_template(); ?>
-
-		<?php endwhile; endif; ?>
+	<?php endif; ?>
 
 <?php get_footer(); ?>

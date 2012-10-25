@@ -10,8 +10,6 @@
 	<?php if (isset($PAGE_desc)) { ?><meta name="description" content="<?= $PAGE_desc ?>" /><?php } ?>
 	<?php if (DEV_ENV) { ?><meta name="robots" content="noindex, nofollow" /><?php } ?>
 	<link href="<?= $SYS_folder ?>/_styles.css?v=<?php if (DEV_ENV) echo rand(); ?>" rel="stylesheet" type="text/css" />
-	<link rel="stylesheet/less" type="text/css" href="<?= $SYS_folder ?>/css/less/styles.less" />
-	<script src="<?= $SYS_folder ?>/js/less-1.3.0.min.js" type="text/javascript"></script>
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
